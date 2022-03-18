@@ -12,10 +12,10 @@ private:
 public:
 	PhoneBook(); // конструктор
 	~PhoneBook(); // деструктор
-	void NewAbon(const char* n, int mob, const char* i, int home = 0, int rab=0); // инициализатор с параметрами по умолчанию
+	void NewAbon(const char* n, int mob, const char* i, int home, int rab); // инициализатор
 	void Show(); // отображение записи
 
-	//ниже тдет набор сеттеров для параметров записи
+	//ниже идет набор сеттеров для параметров записи
 	void SetName(const char* n)
 	{
 		if (Name != nullptr)
@@ -48,8 +48,5 @@ public:
 	{
 		mobile = phone;
 	}
-
-	
-
 };
 

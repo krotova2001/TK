@@ -21,19 +21,13 @@ PhoneBook::~PhoneBook()
 	}
 }
 
-void PhoneBook::NewAbon(const char* n, int mob, const char* i, int home = 0, int rab = 0)
+void PhoneBook::NewAbon(const char* n, int mob, const char* i, int home, int rab)
 {
-	if (Name != nullptr) delete[]Name;
-	Name = new char[strlen(n) + 1];
-	strcpy_s(Name, strlen(n) + 1, n);
-
-	if (inf != nullptr) delete[]inf;
-	inf = new char[strlen(i) + 1];
-	strcpy_s(Name, strlen(i) + 1, i);
-
-	tel_home = home;
-	tel_rab = rab;
-	mobile = mob;
+	SetName(n);
+	SetInfo(i);
+	Set_home(home);
+	Set_rab (rab);
+	Set_mobile (mob);
 }
 
 void PhoneBook::Show()
@@ -44,7 +38,6 @@ void PhoneBook::Show()
 	cout << "Домашний  " << tel_home << "\n";
 	cout << inf << "\n";
 	cout << "--------------------------------\n";
-
 }
 
 
