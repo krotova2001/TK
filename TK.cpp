@@ -1,4 +1,4 @@
-п»ї#include <iostream>
+#include <iostream>
 #include "PhoneBook.h"
 using namespace std;
 
@@ -6,27 +6,29 @@ PhoneBook* Add_new(PhoneBook* BD, int* size)
  {
 	PhoneBook Abon;
 	PhoneBook* BD_new = new PhoneBook[(* size) + 1];
-	int mob, rab, home;
-	char Name[30];
+	unsigned long long int mob, rab, home;
+	char Name[30]; // зададим максимальные размеры текстовых полей
 	char inf[100];
-	cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ\n";
+	cout << "Введите имя\n";
 	cin >> Name;
-	cout << "Р’РІРµРґРёС‚Рµ РјРѕР±РёР»СЊРЅС‹Р№ С‚РµР»РµС„РѕРЅ\n";
+	cout << "Введите мобильный телефон\n";
 	cin >> mob;
-	cout << "Р’РІРµРґРёС‚Рµ РґРѕРјР°С€РЅРёР№ С‚РµР»РµС„РѕРЅ\n";
+	cout << "Введите домашний телефон\n";
 	cin >> home;
-	cout << "Р’РІРµРґРёС‚Рµ СЂР°Р±РѕС‡РёР№ С‚РµР»РµС„РѕРЅ\n";
+	cout << "Введите рабочий телефон\n";
 	cin >> rab;
-	cout << "Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ\n";
-	cin >> inf;
-	Abon.NewAbon(Name, mob, inf, home, rab);
+	cout << "Дополнительная информация\n";
+	cin.get(); // чтобы функция cin.getline отрабатывала нормально, нужно перед ней выбросить \n из потока, так как cin>> ее там оставляет
+	cin.getline(inf, 99);
+	Abon.NewAbon(Name, mob, inf, home, rab); // запускаем инициализатор
+	Abon.Set_id(*size + 1);
 	for (int i = 0; i < *size; i++)
 	{
 		BD_new[i] = BD[i];
 	}
 
 	BD_new[(* size)] = Abon;
-	delete[] BD;
+	delete[]BD;
 	(* size)++;
 	return BD_new;
 }
@@ -40,23 +42,39 @@ void Show_all(PhoneBook* BD, int size)
 	}
 }
 
-
+PhoneBook* Delete_phone(PhoneBook* BD, int* size, int id) //функция удаления записи. Принимает массив записей, размер и ID
+{
+	PhoneBook* BD_new = new PhoneBook[(*size) - 1]; // создаем новую базу телефонов, на 1 меньше чем было
+	//скопируем в чать нового массива чать до удаляемого элемента
+	for (int i = 0; i < (id - 1); i++)
+	{
+		BD_new[i] = BD[i]; // скопируем всё туда
+	}
+	//и после удаляемого элемента
+	for (int i = (id - 1); i < (*size) - 1; i++)
+	{
+		BD_new[i] = BD[i + 1]; // 
+	}
+	(*size)--; // размер уменьшился
+	delete[]BD; //очищаем память
+	return BD_new; // возвращаем указатель на очищенную БД
+}
 
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	int sel; // РІС‹Р±РѕСЂ РґР»СЏ РјРµРЅСЋ
+	int sel; // выбор для меню
 	int size = 0;
-	PhoneBook* BD = new PhoneBook[size]; // РІСЃРµ СЌР»РµРјРµРЅС‚С‹ РєР»Р°СЃСЃР° РЅР°РґРѕ С…СЂР°РЅРёС‚СЊ РѕСЂРіР°РЅРёР·РѕРІР°РЅРЅРѕ, РµСЃР»Рё РјС‹ С…РѕС‚РёРј РёС… РІСЃРµ РІРјРµСЃС‚Рµ РїРѕРєР°Р·С‹РІР°С‚СЊ 
+	PhoneBook* BD = new PhoneBook[size]; // все элементы класса надо хранить организованно, если мы хотим их все вместе показывать 
 
 	do 
 	{
-		cout << "РџСЂРѕСЃРјРѕС‚СЂ РІСЃРµС… Р°Р±РѕРЅРµРЅС‚РѕРІ------1\n";
-		cout << "Р”РѕР±Р°РІР»РµРЅРёРµ Р°Р±РѕРЅРµРЅС‚Р°----------2\n";
-		cout << "РЈРґР°Р»РµРЅРёРµ Р°Р±РѕРЅРµРЅС‚Р°------------3\n";
-		cout << "РџРѕРёСЃРє Р°Р±РѕРЅРµРЅС‚Р° РїРѕ С‚РµР»РµС„РѕРЅСѓ---4\n";
-		cout << "РџРѕРёСЃРє Р°Р±РѕРЅРµРЅС‚Р° РїРѕ РёРјРµРЅРё------5\n";
-		cout << "Р’С‹С…РѕРґ------------------------0\n";
+		cout << "Просмотр всех абонентов------1\n";
+		cout << "Добавление абонента----------2\n";
+		cout << "Удаление абонента------------3\n";
+		cout << "Поиск абонента по телефону---4\n";
+		cout << "Поиск абонента по имени------5\n";
+		cout << "Выход------------------------0\n";
 
 	cin >> sel;
 	
@@ -69,6 +87,10 @@ int main()
 		BD = Add_new(BD, &size);
 		break;
 	case 3:
+		int choise2;
+		cout << "Введите номер записи \n";
+		cin >> choise2;
+		BD = Delete_phone(BD, &size, choise2);
 		break;
 	case 4:
 		break;

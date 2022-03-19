@@ -21,17 +21,18 @@ PhoneBook::~PhoneBook()
 	}
 }
 
-void PhoneBook::NewAbon(const char* n, int mob, const char* i, int home, int rab)
+void PhoneBook::NewAbon(const char* n, unsigned long long int mob, const char* i, unsigned long long int home, unsigned long long int rab)
 {
 	SetName(n);
+	Set_mobile(mob);
 	SetInfo(i);
 	Set_home(home);
 	Set_rab (rab);
-	Set_mobile (mob);
 }
 
 void PhoneBook::Show()
 {
+	cout << "number - " <<id<< "\n";
 	cout << Name <<"\n";
 	cout << "Мобильный " << mobile << "\n";
 	cout << "Рабочий " << tel_rab << "\n";

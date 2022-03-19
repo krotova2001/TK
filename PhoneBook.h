@@ -5,14 +5,15 @@ class PhoneBook
 {
 private:
 	char* Name;
-	int tel_home;
-	int tel_rab;
-	int mobile;
+	unsigned long long int tel_home;
+	unsigned long long int tel_rab;
+	unsigned long long int mobile;
 	char* inf;
+	int id;
 public:
 	PhoneBook(); // конструктор
 	~PhoneBook(); // деструктор
-	void NewAbon(const char* n, int mob, const char* i, int home, int rab); // инициализатор
+	void NewAbon(const char* n, unsigned long long int mob, const char* i, unsigned long long int home, unsigned long long int rab); // инициализатор
 	void Show(); // отображение записи
 
 	//ниже идет набор сеттеров для параметров записи
@@ -36,17 +37,21 @@ public:
 		strcpy_s(inf, strlen(i) + 1, i);
 	}
 
-	void Set_home(int phone)
+	void Set_home(unsigned long long int phone)
 	{
 		tel_home = phone;
 	}
-	void Set_rab(int phone)
+	void Set_rab(unsigned long long int phone)
 	{
 		tel_rab = phone;
 	}
-	void Set_mobile(int phone)
+	void Set_mobile(unsigned long long int phone)
 	{
 		mobile = phone;
+	}
+	void Set_id(int num)
+	{
+		id = num;
 	}
 };
 
