@@ -4,24 +4,15 @@ using namespace std;
 
 PhoneBook::PhoneBook()
 {
-	Name = nullptr;
-	inf = nullptr;
+	
 }
 
 PhoneBook::~PhoneBook()
 {
-	if (Name != nullptr)
-	{
-		delete[]Name;
-	}
-
-	if (inf != nullptr)
-	{
-		delete[]inf;
-	}
+	
 }
 
-void PhoneBook::NewAbon(const char* n, unsigned long long int mob, const char* i, unsigned long long int home, unsigned long long int rab)
+void PhoneBook::NewAbon(char* n, unsigned long long int mob, char* i, unsigned long long int home, unsigned long long int rab)
 {
 	SetName(n);
 	Set_mobile(mob);

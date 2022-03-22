@@ -4,37 +4,27 @@
 class PhoneBook
 {
 private:
-	char* Name;
+	char Name[30];
 	unsigned long long int tel_home;
 	unsigned long long int tel_rab;
 	unsigned long long int mobile;
-	char* inf;
+	char inf[100];
 	int id;
 public:
 	PhoneBook(); // конструктор
 	~PhoneBook(); // деструктор
-	void NewAbon(const char* n, unsigned long long int mob, const char* i, unsigned long long int home, unsigned long long int rab); // инициализатор
+	void NewAbon( char *n, unsigned long long int mob, char *i, unsigned long long int home, unsigned long long int rab); // инициализатор
 	void Show(); // отображение записи
 
 	//ниже идет набор сеттеров для параметров записи
-	void SetName(const char* n)
+	void SetName(char* n)
 	{
-		if (Name != nullptr)
-		{
-			delete[]Name;
-		}
-		Name = new char[strlen(n) + 1];
-		strcpy_s(Name, strlen(n) + 1, n);
+		strcpy_s(Name, 30 , n);
 	}
 
-	void SetInfo(const char* i)
+	void SetInfo(char* i)
 	{
-		if (inf != nullptr)
-		{
-			delete[]inf;
-		}
-		inf = new char[strlen(i) + 1];
-		strcpy_s(inf, strlen(i) + 1, i);
+		strcpy_s(inf, 100 ,i);
 	}
 
 	void Set_home(unsigned long long int phone)

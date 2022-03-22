@@ -21,7 +21,7 @@ PhoneBook* Add_new(PhoneBook* BD, int* size)
 	cin.get(); // чтобы функция cin.getline отрабатывала нормально, нужно перед ней выбросить \n из потока, так как cin>> ее там оставляет
 	cin.getline(inf, 99);
 	Abon.NewAbon(Name, mob, inf, home, rab); // запускаем инициализатор
-	Abon.Set_id(*size + 1);
+	Abon.Set_id((*size) + 1);
 	for (int i = 0; i < *size; i++)
 	{
 		BD_new[i] = BD[i];
