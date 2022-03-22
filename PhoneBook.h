@@ -43,5 +43,17 @@ public:
 	{
 		id = num;
 	}
+	
+	int* Get_tel() // отдает массив телефонов
+	{
+		int mass[3]{mobile, tel_home, tel_rab};
+		return mass;
+	}
+
+	char* Get_name() // отдает имя
+	{
+		return Name;
+	}
+
 };
 

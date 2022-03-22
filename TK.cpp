@@ -60,6 +60,41 @@ PhoneBook* Delete_phone(PhoneBook* BD, int* size, int id) //функция удаления зап
 	return BD_new; // возвращаем указатель на очищенную БД
 }
 
+void Search_tel(PhoneBook* BD, int* size) // функция поиска по телефона. Принимает базу и телефон, ищет совпавдения во всех видах телефонов
+{
+	unsigned long long int tel; // 
+	cout << "Введите телефон\n";
+	cin >> tel; // заполняем телефон который ищем
+
+	//преобразуем по ходу сравнения просматриываемые телефоны тоже в массив и сравниваем два массива по элементам
+	for (int i = 0; i < *size; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			unsigned long long temp_tel = BD[i].Get_tel()[j]; // временное значение, куда полставляет один тз телефонов объекта
+			if (tel == temp_tel) BD[i].Show();
+		}
+	}
+}
+
+void Search_name(PhoneBook* BD, int* size)
+{
+	char Name_s[30];
+	int equal = 0; // счетчик совпадений
+	cout << "Введите имя\n";
+	cin >> Name_s;
+	for (int i = 0; i < *size; i++)
+	{
+		if (_strnicmp(Name_s, BD[i].Get_name(), 2) == 0)//если хотя бы первые два символа в названии сопадают - выводим результат
+		{
+			(*BD).Show();
+			equal++; // увеличиваем счетчик результатов
+		}
+	}
+	if (equal != 0) cout << "Найдено " << equal << " совпадений\n";
+	if (equal == 0)  cout << "Совпадений не найдено\n";
+}
+
 int main()
 {
 	setlocale(LC_ALL, "Russian");
@@ -93,8 +128,10 @@ int main()
 		BD = Delete_phone(BD, &size, choise2);
 		break;
 	case 4:
+		Search_tel(BD, &size);
 		break;
 	case 5:
+		Search_name(BD, &size);
 		break;
 		}
 	} 
